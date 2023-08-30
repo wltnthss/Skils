@@ -34,3 +34,20 @@ AWS (Amazon Web Services) 로 아마존닷컴의 클라우드 컴퓨팅 사업�
   * 컴퓨터에 cpu, os, ram 등 가상의 공간에 나만의 컴퓨터를 등록하는 것임.
   * 웹사이트를 개발하기위한 코드를 만들면 코드를 넣어주고 동작하게 하는 컴퓨터로 사용함.
   * 대표적인 AWS 서비스로 RDS와 S3 가 있음.
+
+## AWS 사용팁
+
+* IAM내에서 100명 이상의 사용자를 등록하는 경우
+* 쉘 커맨드를 이용해 AWS CLI 사용
+
+```
+// iam 은 사용하려는 서비스, create-user는 내리고 싶은 명령
+ex)aws iam create-user --user-name example@example.com
+
+while IFS= read -r email
+do
+   aws iam create-user --user-name $email  // 유저 생성
+   aws iam add-user-to-group --group-name "crew" --user-name $email  // 그룹에 등록
+
+done < "crew.txt"     
+```
